@@ -1,0 +1,28 @@
+AI/ML Engineer
+
+Required Skills:
+- Python
+- Machine Learning
+- Deep Learning
+- PyTorch
+- TensorFlow
+- OpenCV
+- Computer Vision
+- NumPy
+- Pandas
+- Scikit-learn
+- Git
+- Streamlit
+
+Education:
+B.Tech in Computer Science or Information Technology
+
+Experience:
+0-2 years
+
+Responsibilities:
+- Build AI and Machine Learning models
+- Develop Computer Vision applications
+- Train Deep Learning models
+- Perform Data Preprocessing
+- Deploy AI applications
