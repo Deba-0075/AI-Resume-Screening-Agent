@@ -1,0 +1,46 @@
+# ============================
+# AI Resume Screening Agent
+# Python 3.10.11
+# ============================
+
+# Web App
+streamlit==1.59.2
+
+# AI & NLP
+sentence-transformers==5.6.0
+transformers==5.14.1
+torch==2.13.0
+spacy==3.8.14
+
+# Data Processing
+pandas==2.3.3
+numpy==1.26.4
+scikit-learn==1.7.2
+scipy==1.15.3
+
+# Resume Parsing
+PyMuPDF==1.28.0
+python-docx==1.2.0
+
+# File Handling
+openpyxl==3.1.5
+
+# Environment Variables
+python-dotenv==1.2.2
+
+# Progress Bars
+tqdm==4.69.0
+
+# HTTP Requests
+requests==2.34.2
+
+# Utilities
+Pillow==12.3.0
+joblib==1.5.3
+
+# Optional (for future LLM integration)
+httpx==0.28.1
+
+# Optional (for future API backend)
+fastapi==0.120.0
+uvicorn==0.51.0
