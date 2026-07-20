@@ -2,70 +2,89 @@
 
 An AI-powered Resume Screening Agent that automates the recruitment process by analyzing multiple resumes, comparing them with a Job Description (JD), and ranking candidates using Natural Language Processing (NLP), semantic similarity, and hybrid scoring techniques.
 
-The system supports multiple resume formats and generates ranked candidate reports in CSV and JSON formats.
+The application provides a user-friendly Streamlit interface for uploading resumes and job descriptions, analyzing candidates, and exporting ranked results.
 
 ---
 
 # 🚀 Features
 
-### 📄 Resume Parsing
+## 📄 Resume Parsing
 - PDF (.pdf)
 - Microsoft Word (.docx)
 - Plain Text (.txt)
 
-### 👤 Candidate Information Extraction
+## 👤 Candidate Information Extraction
 - Name
 - Email
 - Phone Number
 
-### 🧠 Resume Analysis
+## 🧠 Resume Analysis
 - Skill Extraction
 - Education Extraction
 - Experience Extraction
 
-### 📋 Job Description Analysis
+## 📋 Job Description Analysis
 - Required Skills
 - Required Education
 - Required Experience
 
-### 🤖 AI-Based Matching
+## 🤖 AI-Based Matching
 - Sentence Transformer Embeddings
-- Semantic Similarity
+- Semantic Similarity Matching
 - Hybrid Candidate Scoring
 
-### 📊 Candidate Ranking
+## 📊 Candidate Ranking
 - Multi-Resume Screening
-- Automatic Ranking
-- CSV Export
-- JSON Export
+- Automatic Candidate Ranking
+- Recommendation Labels
+- Matched Skills
+- Missing Skills
+
+## 🖥 Streamlit Dashboard
+- Upload Job Description
+- Upload Multiple Resumes
+- Interactive Dashboard
+- Candidate Ranking Table
+- Top Candidate Display
+- Score Visualization
+- CSV Download
+- JSON Download
 
 ---
 
 # 🛠 Technology Stack
 
-### Programming Language
+## Programming Language
 - Python 3.10
 
-### AI / Machine Learning
+## AI / Machine Learning
 - Sentence Transformers
 - PyTorch
 - spaCy
 - Scikit-learn
 
-### Data Processing
+## Data Processing
 - Pandas
 - NumPy
 
-### Resume Parsing
+## Resume Parsing
 - PyMuPDF
 - python-docx
+
+## Frontend
+- Streamlit
 
 ---
 
 # 📂 Project Structure
 
-```
+```text
 Resume_Screening_Agent/
+│
+├── app.py
+├── config.py
+├── requirements.txt
+├── README.md
 │
 ├── data/
 │   ├── resumes/
@@ -78,25 +97,21 @@ Resume_Screening_Agent/
 ├── embeddings/
 ├── scoring/
 ├── ranking/
-├── tests/
-│
-├── config.py
-├── requirements.txt
-└── README.md
+└── tests/
 ```
 
 ---
 
 # 🔄 Workflow
 
-```
+```text
                   Job Description
                          │
                          ▼
                  Parse Job Description
                          │
                          ▼
-                Load Candidate Resume
+              Upload Candidate Resumes
                          │
                          ▼
             Extract Candidate Information
@@ -114,7 +129,7 @@ Resume_Screening_Agent/
              Rank All Candidates
                          │
                          ▼
-            Export CSV & JSON Reports
+        Display Dashboard & Export Reports
 ```
 
 ---
@@ -146,51 +161,58 @@ The final candidate score is calculated using a weighted hybrid approach.
 
 # 📤 Output
 
-The system generates:
+The application generates:
 
 - Ranked Candidate List
+- Candidate Recommendation
 - CSV Report
 - JSON Report
 
 ### Sample Output
 
-| Rank | Candidate | Final Score |
-|------|-----------|------------:|
-| 1 | Candidate A | 91.45 |
-| 2 | Candidate B | 87.32 |
-| 3 | Candidate C | 79.18 |
+| Rank | Candidate | Score | Recommendation |
+|------|-----------|------:|----------------|
+| 1 | Candidate A | 91.45 | 🟢 Highly Recommended |
+| 2 | Candidate B | 87.32 | 🟢 Recommended |
+| 3 | Candidate C | 72.18 | 🟡 Consider |
 
 ---
 
 # ▶️ Installation
 
-## Clone Repository
+## 1. Clone Repository
 
 ```bash
 git clone https://github.com/Deba-0075/AI-Resume-Screening-Agent.git
 ```
 
-## Create Virtual Environment
+## 2. Move into the Project Folder
+
+```bash
+cd AI-Resume-Screening-Agent
+```
+
+## 3. Create Virtual Environment
 
 ```bash
 python -m venv .venv
 ```
 
-## Activate Environment
+## 4. Activate Virtual Environment
 
-Windows
+### Windows
 
 ```bash
 .venv\Scripts\activate
 ```
 
-Linux / macOS
+### Linux / macOS
 
 ```bash
 source .venv/bin/activate
 ```
 
-## Install Dependencies
+## 5. Install Dependencies
 
 ```bash
 pip install -r requirements.txt
@@ -198,23 +220,72 @@ pip install -r requirements.txt
 
 ---
 
-# ▶️ Run the Project
+# ▶️ Run the Application
+
+Start the Streamlit application:
 
 ```bash
-python -m tests.test_ranker
+streamlit run app.py
 ```
+
+After running the command, Streamlit will display a local URL similar to:
+
+```text
+http://localhost:8501
+```
+
+Open the URL in your browser if it doesn't open automatically.
+
+---
+
+---
+
+# 📸 Application Screenshots
+
+## Home Screen
+
+![Home Screen](screenshots/home.png)
+
+---
+
+## Dashboard
+
+![Dashboard](screenshots/dashboard.png)
+
+---
+
+## Candidate Ranking
+
+![Ranking](screenshots/ranking.png)
+
+---
+
+## Candidate Details
+
+![Candidate Details](screenshots/candidate_details.png)
+
+---
+
+
+# 📖 How to Use
+
+1. Upload the Job Description (.txt)
+2. Upload one or more resumes (.pdf, .docx or .txt)
+3. Click **Analyze Resumes**
+4. View the ranked candidate dashboard
+5. Download the ranking results as CSV or JSON
 
 ---
 
 # 📈 Future Enhancements
 
-- Streamlit Dashboard
 - OCR Support for Scanned Resumes
 - LLM-powered Resume Analysis
-- Recommendation Labels
+- AI-generated Candidate Feedback
 - Interview Question Generation
 - Candidate Analytics Dashboard
 - Database Integration
+- Authentication & User Management
 
 ---
 
@@ -224,6 +295,12 @@ python -m tests.test_ranker
 
 Computer Science Engineer | AI/ML & Computer Vision Enthusiast
 
-GitHub: https://github.com/Deba-0075
+📧 Email: sahudebabrata004@gmail.com
 
-LinkedIn: https://www.linkedin.com/in/debabrata-sahu-293ba0304
+🔗 GitHub: https://github.com/Deba-0075
+
+💼 LinkedIn: https://www.linkedin.com/in/debabrata-sahu-293ba0304
+
+---
+
+## ⭐ If you found this project useful, consider giving it a star on GitHub!

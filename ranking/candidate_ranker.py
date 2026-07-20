@@ -37,6 +37,10 @@ class CandidateRanker:
             if file.suffix.lower() not in [".pdf", ".docx", ".txt"]:
                 continue
 
+            # -------------------------
+            # Resume Parsing
+            # -------------------------
+
             resume_text = ResumeParser.extract_text(str(file))
 
             contact = ContactExtractor.extract(resume_text)
@@ -47,7 +51,23 @@ class CandidateRanker:
 
             experience = ExperienceExtractor.extract(resume_text)
 
-            semantic = self.embedding.similarity(
+            # -------------------------
+            # Matching
+            # -------------------------
+
+            matched_skills = sorted(
+                list(set(skills) & set(jd["skills"]))
+            )
+
+            missing_skills = sorted(
+                list(set(jd["skills"]) - set(skills))
+            )
+
+            # -------------------------
+            # Scores
+            # -------------------------
+
+            semantic_score = self.embedding.similarity(
                 resume_text,
                 jd_text
             )
@@ -68,31 +88,65 @@ class CandidateRanker:
             )
 
             final_score = FinalScorer.calculate(
-                semantic,
+                semantic_score,
                 skill_score,
                 experience_score,
                 education_score
             )
 
+            # -------------------------
+            # Recommendation
+            # -------------------------
+
+            if final_score >= 85:
+                recommendation = "🟢 Highly Recommended"
+
+            elif final_score >= 70:
+                recommendation = "🟢 Recommended"
+
+            elif final_score >= 50:
+                recommendation = "🟡 Consider"
+
+            else:
+                recommendation = "🔴 Not Recommended"
+
+            # -------------------------
+            # Candidate Data
+            # -------------------------
+
             candidates.append({
 
-                "candidate": contact["name"],
+                "rank": 0,
 
-                "email": contact["email"],
+                "resume_file": file.name,
 
-                "phone": contact["phone"],
+                "candidate": contact["name"] if contact["name"] else "Unknown Candidate",
 
-                "semantic_score": semantic,
+                "email": contact["email"] if contact["email"] else "Not Available",
 
-                "skill_score": skill_score,
+                "phone": contact["phone"] if contact["phone"] else "Not Available",
 
-                "education_score": education_score,
+                "matched_skills": ", ".join(matched_skills),
 
-                "experience_score": experience_score,
+                "missing_skills": ", ".join(missing_skills),
 
-                "final_score": final_score
+                "semantic_score": round(semantic_score, 2),
+
+                "skill_score": round(skill_score, 2),
+
+                "education_score": round(education_score, 2),
+
+                "experience_score": round(experience_score, 2),
+
+                "final_score": round(final_score, 2),
+
+                "recommendation": recommendation
 
             })
+
+        # -------------------------
+        # Sort by Final Score
+        # -------------------------
 
         candidates = sorted(
             candidates,
@@ -100,18 +154,35 @@ class CandidateRanker:
             reverse=True
         )
 
+        # -------------------------
+        # Assign Rank
+        # -------------------------
+
         for i, candidate in enumerate(candidates, start=1):
             candidate["rank"] = i
 
-        pd.DataFrame(candidates).to_csv(
+        # -------------------------
+        # Save Results
+        # -------------------------
+
+        df = pd.DataFrame(candidates)
+
+        df.to_csv(
             "data/output/ranked_candidates.csv",
             index=False
         )
 
         with open(
             "data/output/ranked_candidates.json",
-            "w"
+            "w",
+            encoding="utf-8"
         ) as file:
-            json.dump(candidates, file, indent=4)
+
+            json.dump(
+                candidates,
+                file,
+                indent=4,
+                ensure_ascii=False
+            )
 
         return candidates
